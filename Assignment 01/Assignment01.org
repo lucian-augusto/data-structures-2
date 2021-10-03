@@ -1,0 +1,135 @@
+#+TITLE: Estruturas de Dados 2 - Lista de Exercícios 1
+#+AUTHOR: Lucian Augusto
+#+STARTUP: showeverything
+#+OPTIONS: date:nill toc:nil
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \usepackage[a4paper,left=25mm,right=25mm,top=25mm,bottom=25mm]{geometry}
+
+* Relembrando EDI: Qual a complexidade de tempo (pior caso) dos seguintes algoritmos clássicos: busca-binária, busca-linear, selection-sort, insertion-sort, bubble-sort, merge-sort, quick-sort, inserir um elemento em uma pilha, algoritmo clássico de multiplicação de matrizes.
+
+** Resposta:
+- *Busca binária*: $O(\log{n})$.
+- *Busca linear*: $O(n)$.
+- *Selection sort*: $O(n^{2})$.
+- *Insertion sort*: $O(n^{2})$.
+- *Bubble sort*: $O(n^{2})$.
+- *Merge sort*: $O(n \log{n})$.
+- *Quick sort*: $O(n^{2})$.
+- *Inserir um elemento em uma pilha*: Apenas uma instrução, portanto $O(1)$.
+- *Algoritmo clássico de multiplicação de matrizes*: $O(n^{3})$ para multiplicar duas matrizes $n \times n$.
+
+
+* Coloque as funções a seguir em ordem crescente assintoticamente:
+1. $7n + \sqrt{n}$
+2. $n^{2} - 2n + 5$
+3. $\log{n^{2}}$
+4. $3n \log{n} + 5n$
+5. $an^{3} + bn^{2} - cn + 2$
+6. $e^{n}$
+7. $3^{n} + \log{n} + n^{3}$
+8. $5n^{2} \log{n} + n^{2} - n + 1$
+9. $3500000000$
+10. $2^{n^{2}}$
+11. $4^{\log{n}}$
+12. $2^{\log{n}}$
+
+** Resposta:
+1. $3500000000$ -> constante
+2. $\log{n^{2}}$ -> $O(\log{n^{2}})$
+3. $7n + \sqrt{n}$ -> $O(n)$
+4. $3n \log{n} + 5n$ -> $O(n \log{n})$
+5. $n^{2} - 2n + 5$ -> $O(n^{2})$
+6. $5n^{2} \log{n} + n^{2} - n + 1$ -> $O(n^{2} \log{n})$
+7. $an^{3} + bn^{2} - cn + 2$ -> $O(n^{3})$
+8. $2^{\log{n}}$ -> $O(2^{\log{n}})$
+9. $4^{\log{n}}$ -> $O(4^{\log{n}})$
+10. $e^{n}$ -> $O(e^{n})$
+11. $3^{n} + \log{n} + n^{3}$ -> $O(3^{n})$
+12. $2^{n^{2}}$ -> $O(2^{n^{2}})$
+
+
+* Os algoritmos W, X, Y e Z possuem tempo de execução no pior caso de $20n \log_{10}{n}$, $5n^{2}$, $0.005n^{3}$ e $500n$, respectivamente. Responda as seguintes questões:
+
+** Qual a notação assintótica destes quatro algoritmos?
+
+*** Resposta:
+$W \rightarrow O(n \log{n})$
+$X \rightarrow O(n^{2})$
+$Y \rightarrow O(n^{3})$
+$Z \rightarrow O(n)$
+
+** Utilizando a resposta da questão anterior, qual o ordem destes quatro algoritmos (do melhor para o pior).
+
+*** Resposta:
+A ordem dos algoritmos, do maior para o pior será:
+1. $Z (O(n))$;
+2. $W (O(n \log{n}))$
+3. $X (O(n^{2}))$
+4. $Y (O(n^{3}))$
+
+** Utilizando o custo exato de cada algoritmo (não na forma assintótica), qual o ordem destes quatro algoritmos, do melhor para o pior, para 30 elementos?
+
+*** Resposta:
+Utilizando o custo exato de cada algoritmo, para 30 elementos teremos a seguinte ordem:
+1. $Y \rightarrow 0.005(30)^{3} = 135$
+2. $W \rightarrow 20(30) \log_{10}{30} \approx 886.2728$
+3. $X \rightarrow 5(30)^{2} = 4500$
+4. $Z \rightarrow 500(30) = 15000$
+
+** Utilizando o custo exato de cada algoritmo (não na forma assintótica), qual o ordem destes quatro algoritmos, do melhor para o pior, para 100.000 elementos?
+
+*** Resposta:
+Utilizando o custo exato de cada algoritmo, para 100000 elementos teremos a seguinte ordem:
+1. $W \rightarrow 20(100000) \log_{10}{100000} \approx 2.30258509299 \times 10^{7}$
+2. $Z \rightarrow 500(100000) = 5 \times 10^{7}$
+3. $X \rightarrow 5(100000)^{2} = 5 \times 10^{10}$
+4. $Y \rightarrow 0.005(100000)^{3} = 5 \times 10^{12}$
+
+
+* O que fazem os algoritmos abaixo. Calcule a complexidade de cada um deles em função de n.
+| Algoritmo1             | Algoritmo2           | Algoritmo3        |
+| 1. s = 0;              | 1. s = 0;            | 1. s = n*(n+1)/2; |
+| 2. for (i=1;i<=n;i++); | 2. for(i=1;i<=n;i++) |                   |
+| 3. s = s+i;            | 3. for(j=1;j<=i;j++) |                   |
+|                        | 4. s = s + 1;        |                   |
+
+** Resposta:
+- *Algoritmo1*: Este algoritmo realiza a soma de todos os números positivos de zero até n (n incluso). O código executa a mesma instrução n vezes. Portanto, sua complexidade é $O(n)$.
+- *Algoritmo2*: Este algoritmo calcula o n-ésimo termo da sequência de números triangulares (números que representam a quantidade de elementos que podem ser organizados em um triângulo equilátero). O algoritmo em questão, faz uso de dois laços /for/, um indo de $1$ até $n$ e outro dentro do primeiro indo de $1$ até o valor do contador do primeiro laço. Como estamos utilizando dois laços aninhados, este algoritmo acaba tendo uma complexidade $O(n^{2})$.
+- *Algoritmo3*: Este algoritmo calcula o n-ésimo termo da sequência de números triangulares. Ao contrário do caso anterior, ele utiliza uma fórmula para fazer o cálculo. neste caso, executamos apenas uma instrução, que não depende de $n$. Portanto, a complexidade é constante, $O(1)$.
+
+
+* Considere o seguinte fragmento de código:
+#+BEGIN_SRC c
+int d = MAX;
+for (i = 0; i < n; i++) {
+    for (j = 0; j < n; j++) {
+        if ((i != j) && abs(V[i] - V[j]) < d) {
+            d = abs(V[i] - V[j]);
+        }
+    }
+}
+return d;
+#+END_SRC
+
+Descreva o que ele faz e qual a complexidade utilizando a notação assintótica. Descreva se existe algum modo de melhorar a complexidade.
+
+** Resposta:
+O fragmento apresentado calcula a maior diferença entre elementos de um vetor de tamanho $n$. Neste caso como temos dois laços aninhados, a complexidade neste caso é $O(n^{2})$. É possível melhorar a complexidade deste algoritmo armazenando também o maior número presente no vetor e ir comparando elemento a elemento. Podemos utilizar um laço /for/ para encontrar o maior valor e então um outro laço para fazer as comparações. Desta maneira, reduziríamos a complexidade de $O(n^{2})$ para $O(n)$.
+
+
+* Sejam as funções:
+
+- $f(n) = n + \log{n}$
+- $g(n) = 5$
+- $h(n) = n \log{n}$
+- $l(n) = n^{2} + h(n)$.
+
+Marque V ou F.
+
+- (V) $f(n) \notin O(l(n))$
+- (F) $g(n) \in \Omega(f(n))$
+- (V) $h(n) \notin O(n2)$
+- (V) $l(n) \in \Omega(h(n))$
+- (V) $g(n) \in O(1)$
+- (V) $l(n) \notin \Theta(n^{2})$
