@@ -1,0 +1,8 @@
+To only build the code run "make" or "make build" on a terminal console.
+To build and execute the test program (binaryTreeTest) run "make run" on a terminal console.
+To remove the executable run "make clean" on a terminal console.
+
+The functions required for the exercise as well as the necessary structs were moved to the header file arvore.h so only this file needs to be imported
+on a program's import header. However the file arvore.c must be compiled as well so the implementations of said functions be available.
+
+Lucian Augusto.
