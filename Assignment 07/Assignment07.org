@@ -1,0 +1,247 @@
+#+TITLE: Estrutura de Dados 2 - Lista de Exercícios 7
+#+AUTHOR: Lucian Augusto
+#+STARTUP: showeverything
+#+OPTIONS: date:nill toc:nil num:1
+#+LATEX_HEADER: \usepackage[a4paper,left=25mm,right=25mm,top=25mm,bottom=25mm]{geometry}
+#+LATEX_HEADER: \usepackage{enumitem}
+
+* Implemente o algoritmo heap-sort. Use como base o código heapsort.c (disponível no Moodle).
+
+** Resposta:
+Arquivo /heapsort.c/ foi anexado junto com este arquivo, mas o código presente nele pode ser visto abaixo:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+void build_max_heap(int V[], int size);
+int getLeft(int i, int size);
+int getRight(int i, int size);
+void heap_sort(int V[], int size);
+void imprimir(int V[], int size);
+void max_heapify(int V[], int size, int i);
+int pai(int i);
+void trocar(int V[], int a, int b);
+
+int getLeft(int i, int size) {
+  int left = (i * 2) + 1;
+  return left < size ? left : -1;
+}
+
+int getRight(int i, int size) {
+  int right = (i * 2) + 2;
+  return right < size ? right : -1;
+}
+
+int pai(int i) { return (i - 1) / 2; }
+
+void trocar(int V[], int a, int b) {
+  int aux = V[a];
+  V[a] = V[b];
+  V[b] = aux;
+}
+
+void imprimir(int V[], int size) {
+  int i;
+  for (i = 0; i < size; i++) {
+    printf("%d ", V[i]);
+  }
+  printf("\n");
+}
+
+void max_heapify(int V[], int size, int i) {
+  int leftIndex = getLeft(i, size);
+  int rightIndex = getRight(i, size);
+  int highestIndex;
+
+  highestIndex = (leftIndex >= 0 && V[leftIndex] > V[i]) ? leftIndex : i;
+
+  if (rightIndex >= 0 && V[rightIndex] > V[highestIndex]) {
+    highestIndex = rightIndex;
+  }
+  if (highestIndex != i) {
+    trocar(V, i, highestIndex);
+    max_heapify(V, size, highestIndex);
+  }
+}
+
+void build_max_heap(int V[], int size) {
+  int limit = (size / 2) - 1;
+  int i;
+  for (i = limit; i >= 0; i--) {
+    max_heapify(V, size, i);
+  }
+}
+
+void heap_sort(int V[], int size) {
+  build_max_heap(V, size);
+  int i;
+  for (i = size - 1; i > 0; i--) {
+    trocar(V, 0, i);
+    size = i;
+    max_heapify(V, size, 0);
+  }
+}
+
+int main() {
+  int i;
+  int size = 10;
+  int V[] = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
+
+  printf("Vetor inicial : ");
+  imprimir(V, size);
+
+  heap_sort(V, size);
+
+  printf("Vetor ordenado: ");
+  imprimir(V, size);
+
+  return 0;
+}
+#+END_SRC
+
+
+* Cormen) Usando o exemplo abaixo como modelo (que simula a execução de uma operação Max-Heapify(V, 2)), ilustre a operação Max-Heapify(V, 3) sobre o arranjo V = {27, 17, 3, 16, 13, 10, 1, 5, 7, 12, 4, 8, 9, 0}. Na notação do livro base usado nessa disciplina, o índice do primeiro elemento do vetor começa em 1 e não em 0! Este exercício e os demais abaixo devem ser entregues como um pdf.
+#+attr_latex: scale=0.25
+#+label: fig:ex2_example
+[[./img/exercise2/ex2_example.png]]
+
+** Resposta:
+*Obs: Para a solução deste exercício, iremos utilizar a notação do livro-base.*
+
+Para facilitar a visualização, podemos representar o vetor em uma forma semelhante à uma árvore binária. Assim o vetor proposto pode ser visto como a seguinte árvore binária:
+#+attr_latex: scale=0.25
+#+label: fig:ex2_example
+[[./img/exercise2/ex2_1.jpeg]]
+
+Executando a operação /Max-Heapify(V,3)/ no vetor proposto acima, significa que vamos aplicar a operação na posição $3$, que inicialmente contêm o valor $3$.
+
+A operação irá verificar se algum dos seus "filhos" (pensando no vetor representado na forma de árvore binária) é maior que o valor na posição onde a operação ocorre. No nosso caso, irá verificar se os elementos presentes nas posições $6$ e $7$ são maiores que o elemento presente na posição $3$ e, se for o caso, irá trocar o maior elemento com o elemento presente na posição $3$. Se a troca ocorre, uma nova operação /Max-Heapify/ é chamada, desta vez, na posição onde o elemento que estava originalmente na posição $3$ se econtra no momento (no nosso caso, como o elemento $3$ será trocado com o $10$, chamaremos o /Max-Heapify(V,6)/).
+A operação completa do /Max-Heapify(V,3)/ no vetor V pode ser vista nas imagens abaixo:
+#+caption: Arvore original.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex2_1
+[[./img/exercise2/ex2_1.jpeg]]
+
+#+caption: Árvore após à operação /Max-Heapify(V,3)/.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex2_2
+[[./img/exercise2/ex2_2.jpeg]]
+
+#+caption: Árvore final, após à segunda operação, /Max-Heapify(V,6)/.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex2_3
+[[./img/exercise2/ex2_3.jpeg]]
+
+
+Assim o vetor final será *V = {27, 17, 10, 16, 13, 9, 1, 5, 7, 12, 4, 8, 3, 0}*.
+
+* Cormen) Usando o exemplo abaixo como modelo (que simula a execução de uma operação Build-Max-Heap), ilustre a operação Build-Max-Heap sobre o arranjo V = {5, 3, 17, 10, 84, 19, 6, 22, 9}. Na notação do livro base usado nessa disciplina, o índice do primeiro elemento do vetor começa em 1 e não em 0!
+#+attr_latex: scale=0.25
+#+label: fig:ex3_example
+[[./img/exercise3/ex3_example.png]]
+
+** Reposta:
+*Obs: Para a solução deste exercício, iremos utilizar a notação do livro-base.*
+
+A operação /Build-Max-Heap/ irá agir a partir do elemento presente na metade do vetor ($size / 2$) e seguirá construindo o /Heap/ máximo até chegar no primeiro elemento. No nosso caso, como o vetor possui $9$ elementos (posições), ele iniciará na posição $4$ e seguirá fazendo a operação /Max-Heapify/ em todas as posições, até chegar na primeira (inclusa). Assim, ao final da operação, temos a tendência em ter os maiores valores nas primeiras posições do vetor e as menores no final.
+
+Abaixo podemos ver a operação /Max-Heapify/ sendo executada passo a passo para o vetor proposto no enunciado (estamos representando o vetor na forma de árvore binária):
+
+#+caption: Árvore original.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex3_1
+[[./img/exercise3/ex3_1.jpeg]]
+
+#+caption: Árvore após a primeira operação /Max-Heapify/ que ocorre na posição $4$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex3_2
+[[./img/exercise3/ex3_2.jpeg]]
+
+#+caption: Árvore após a segunda operação /Max-Heapify/ que ocorre na posição $3$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex3_3
+[[./img/exercise3/ex3_3.jpeg]]
+
+#+caption: Árvore após a terceira operação /Max-Heapify/ que ocorre na posição $2$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex3_4
+[[./img/exercise3/ex3_4.jpeg]]
+
+#+caption: Árvore após a quarta operação /Max-Heapify/ que ocorre na posição $1$ - Árvore final.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex3_5
+[[./img/exercise3/ex3_5.jpeg]]
+
+
+Assim, o vetor final após a execução da operação /Build-Max-Heap/ será *V = {84, 22, 19, 10, 3, 17, 6, 5, 9}*.
+
+
+* Cormen) Usando o exemplo abaixo como modelo (que simula a execução do algoritmo Heap-Sort), ilustre a operação do Heap-Sort sobre o arranjo V = {5, 13, 2, 25, 7, 17, 20, 8, 4}.
+#+attr_latex: scale=0.25
+#+label: fig:ex2_example
+[[./img/exercise4/ex4_example.png]]
+
+** Resposta:
+*Obs: Para a solução deste exercício, iremos utilizar a notação do livro-base.*
+
+O /Heap-Sort/ é um algoritmo de ordenação que possui a complexidade $O(n \log{n})$. Primeiramente, ele executa uma operação /Build-Max-Heap/ para construir o /heap/ máximo, colocando assim os maiores elementos nas primeiras posições do vetor e, em seguida é realizado a troca do primeiro e do último elemento do vetor, e realizamos então uma operação /Max-Heapify/ no vetor, mas sem considerar a última posição (que já estará com o maior valor). Então realizamos uma nova troca ente o primeiro e o penúltimo elemento e realizamos um novo /Max-Heapify/, desta vez, sem considerar a última e a penúltima posição. E seguimos fazendo esta sequência de passos até realizarmos a troca do primeiro com o segundo elemento, assim, teremos o vetor ordenado.
+
+Abaixo podemos ver o algoritmo /Heap-Sort/ sendo executado passo a passo para o vetor proposto no enunciado (estamos representando o vetor na forma de árvore binária):
+
+#+caption: Árvore original.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_1
+[[./img/exercise4/ex4_1.jpeg]]
+
+#+caption: Árvore após a operação de /Build-Max-Heap/.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_2
+[[./img/exercise4/ex4_2.jpeg]]
+
+#+caption: Árvore após a execução do laço para $i = 9$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_3
+[[./img/exercise4/ex4_3.jpeg]]
+
+#+caption: Árvore após a execução do laço para $i = 8$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_4
+[[./img/exercise4/ex4_4.jpeg]]
+
+#+caption: Árvore após a execução do laço para $i = 7$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_5
+[[./img/exercise4/ex4_5.jpeg]]
+
+#+caption: Árvore após a execução do laço para $i = 6$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_6
+[[./img/exercise4/ex4_6.jpeg]]
+
+#+caption: Árvore após a execução do laço para $i = 5$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_7
+[[./img/exercise4/ex4_7.jpeg]]
+
+#+caption: Árvore após a execução do laço para $i = 4$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_8
+[[./img/exercise4/ex4_8.jpeg]]
+
+#+caption: Árvore após a execução do laço para $i = 3$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_9
+[[./img/exercise4/ex4_9.jpeg]]
+
+#+caption: Árvore após a execução do laço para $i = 2$.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_10
+[[./img/exercise4/ex4_10.jpeg]]
+
+#+caption: Árvore após a execução do laço para $i = 1$ - Árvore Final.
+#+attr_latex: scale=0.25 :placement [!htpb]
+#+label: fig:ex4_11
+[[./img/exercise4/ex4_11.jpeg]]
+
+
+Assim, o vetor ordenado após o /Heap-Sort/ será *V = {2, 4, 5, 7, 8, 13, 17, 20, 25}*.
