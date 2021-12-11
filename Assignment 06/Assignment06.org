@@ -1,0 +1,179 @@
+#+TITLE: Estrutura de Dados 2 - Lista de Exercícios 6
+#+AUTHOR: Lucian Augusto
+#+STARTUP: showeverything
+#+OPTIONS: date:nill toc:nil num:1
+#+LATEX_HEADER: \usepackage[a4paper,left=25mm,right=25mm,top=25mm,bottom=25mm]{geometry}
+#+LATEX_HEADER: \usepackage{enumitem}
+
+* Por que não permitimos um grau mínimo $t = 1$ em uma árvore B?
+
+** Resposta:
+
+Não permitimos um grau mínimo $t = 1$ em árvores B porque, caso $t$ seja igual a $1$, teremos que cada nó sem ser a raíz deverá ter no mínimo $t - 1 \rightarrow 1 - 1 = 0$ chaves. Lembrando que, em uma árvore B, não podemos ter nós com $0$ chaves. Além disso, caso $t = 1$, teríamos que um nó poderia ter $1$ filho, o que também não pode ocorrer em uma árvore B. Assim o grau mínimo de uma árvore B deve ser sempre maior do que $1$.
+
+
+* Para que valores de $t$ a árvore abaixo é uma árvore B válida?
+#+attr_latex: scale=0.75
+#+label: fig:ex2
+[[./img/exercise02/Exercise2BTree.png]]
+
+** Resposta:
+
+Com base na árvore apresentada acima, temos que considerar se os nós diferentes da raíz apresentados estão com o número de chaves e número de filhos (nós internos apenas) dentro dos limites definidos com base no grau ($t$). Os limites são:
+
++ Número mínimo de chaves: $t - 1$;
++ Número máximo de chaves: $2t - 1$;
++ Número mínimo de filhos (para nós internos): $t$;
++ Número máximo de filhos (para nós internos): $2t$.
+
+Lembrando que a raíz deve respeitar os limites superiores apenas.
+
+
+A árvore apresentada, possui nós (sem considerar a raíz) com um mínimo de $2$ chaves e no máximo de $3$ chaves e estes nós, caso internos, possuem, respectivamente, $3$ e $4$ filhos. Assim, podemos notar que, pelos valores mínimos de chaves e filhos em nós, que esta árvore B é válida para os seguintes valores de $t$ (grau):
+
++ $\textbf{t = 2}$:
+  - Número mínimo de chaves: $2 - 1 = \textbf{1}$;
+  - Número máximo de chaves: $2(2) - 1 = \textbf{3}$;
+  - Número mínimo de filhos (para nós internos): $\textbf{2}$;
+  - Número máximo de filhos (para nós internos): $2(2) = \textbf{4}$.
++ $\textbf{t = 3}$:
+  - Número mínimo de chaves: $3 - 1 = \textbf{2}$;
+  - Número máximo de chaves: $2(3) - 1 = \textbf{5}$;
+  - Número mínimo de filhos (para nós internos): $\textbf{3}$;
+  - Número máximo de filhos (para nós internos): $2(3) = \textbf{6}$.
+
+Para quaisquer outros valores acima de $3$, a árvore apresentada não será válida pois não respeitará os valores mínimos de chaves e filhos.
+
+Assim, a árvore B apresentada é válida para os valores de $\textbf{t = 2}$ e $\textbf{t = 3}$.
+
+
+* Mostre todas as árvores B válidas de grau mínimo 2 que representam {1,2,3,4,5}.
+
+** Resposta:
+
+Como o grau mínimo é $2$, temos que $t=2$, assim um nó poderá ter no mínimo $2 - 1 = 1$ chave e no máximo $2(2) - 1 = 3$ chaves. Como estamos inserindo um total de 5 chaves, temos que vamos ter uma árvore com uma raíz e dois filhos, pois ao inserir o quarto elemento (até então todos os elementos estarão sendo inseridos no nó raíz), teremos uma quebra do nó raíz em uma raíz com a mediana dos valores inseridos e o resto dos elementos distrubuídos nos $2$ nós filhos. Como a quebra ocorre na mediana, só teremos 2 opções de nós raíz, um com a chave 2 e outro com a chave 3 (já que estes são as únicas medianas possíveis com o conjunto de chaves propostas). Assim, as árvore B validas de grau mínimo 2 que representam o conjunto de chaves propostas são:
+#+attr_latex: scale=0.25
+#+label: fig:ex3_1
+[[./img/exercise03/ex3_1.jpeg]]
+
+#+attr_latex: scale=0.25
+#+label: fig:ex3_2
+[[./img/exercise03/ex3_2.jpeg]]
+
+
+*  Mostre o resultado da inserção das chaves:
+$\textbf{F, S, Q, K, C, L, H, T, V, W, M, R, N, P, A, B, X, Y, D, Z, E}$
+
+\textbf{Nessa ordem em uma árvore B vazia com grau mínimo 2. Desenhe apenas as configurações da árvore imediatamente antes de ter de dividir algum nó, e desenhe também a configuração final.}
+
+** Resposta:
+
++ Inserindo a chave \textbf{F}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_1
+  [[./img/exercise04/ex4_1.jpeg]]
+
++ Inserindo a chave \textbf{S}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_2
+  [[./img/exercise04/ex4_2.jpeg]]
+
++ Inserindo a chave \textbf{Q}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_3
+  [[./img/exercise04/ex4_3.jpeg]]
+
++ Inserindo a chave \textbf{K}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_4
+  [[./img/exercise04/ex4_4.jpeg]]
+
++ Inserindo a chave \textbf{C}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_5
+  [[./img/exercise04/ex4_5.jpeg]]
+
++ Inserindo a chave \textbf{L}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_6
+  [[./img/exercise04/ex4_6.jpeg]]
+
++ Inserindo a chave \textbf{H}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_7
+  [[./img/exercise04/ex4_7.jpeg]]
+
++ Inserindo a chave \textbf{T}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_8
+  [[./img/exercise04/ex4_8.jpeg]]
+
++ Inserindo a chave \textbf{V}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_9
+  [[./img/exercise04/ex4_9.jpeg]]
+
++ Inserindo a chave \textbf{W}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_10
+  [[./img/exercise04/ex4_10.jpeg]]
+
++ Inserindo a chave \textbf{M}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_11
+  [[./img/exercise04/ex4_11.jpeg]]
+
++ Inserindo a chave \textbf{R}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_12
+  [[./img/exercise04/ex4_12.jpeg]]
+
++ Inserindo a chave \textbf{N}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_13
+  [[./img/exercise04/ex4_13.jpeg]]
+
++ Inserindo a chave \textbf{P}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_14
+  [[./img/exercise04/ex4_14.jpeg]]
+
++ Inserindo a chave \textbf{A}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_15
+  [[./img/exercise04/ex4_15.jpeg]]
+
++ Inserindo a chave \textbf{B}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_16
+  [[./img/exercise04/ex4_16.jpeg]]
+
++ Inserindo a chave \textbf{X}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_17
+  [[./img/exercise04/ex4_17.jpeg]]
+
++ Inserindo a chave \textbf{Y}:
+  #+attr_latex: scale=0.25
+ #+label: fig:ex4_18
+ [[./img/exercise04/ex4_18.jpeg]]
+
++ Inserindo a chave \textbf{D}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_19
+  [[./img/exercise04/ex4_19.jpeg]]
+
++ Inserindo a chave \textbf{Z}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_20
+  [[./img/exercise04/ex4_20.jpeg]]
+
++ Inserindo a chave \textbf{E}:
+  #+attr_latex: scale=0.25
+  #+label: fig:ex4_21
+  [[./img/exercise04/ex4_21.jpeg]]
+
+Assim, a árvore B final será:
+#+attr_latex: scale=0.25
+#+label: fig:ex4_22
+[[./img/exercise04/ex4_22.jpeg]]
